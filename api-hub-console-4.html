@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101827"><title>API Hub · API 管理控制台</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1120;--panel:#121c2e;--panel2:#18253b;--line:#293952;--text:#edf3ff;--muted:#9caec8;--accent:#8ea3ff;--green:#62dfb3;--red:#ff8593;--yellow:#ffd27b}
+body[data-theme="midnight"]{--bg:#0b1120;--panel:#121c2e;--panel2:#18253b;--line:#293952;--text:#edf3ff;--muted:#9caec8;--accent:#8ea3ff;--green:#62dfb3;--red:#ff8593;--yellow:#ffd27b}
+body[data-theme="ocean"]{--bg:#071b27;--panel:#0d2938;--panel2:#12394b;--line:#245064;--text:#e6fbff;--muted:#9cc6d1;--accent:#61d9d0;--green:#73e6b8;--red:#ff8c9a;--yellow:#ffda88}
+body[data-theme="lavender"]{--bg:#1a1428;--panel:#261d38;--panel2:#342748;--line:#4a385f;--text:#fbf0ff;--muted:#c3afd5;--accent:#d2a7ff;--green:#83e0bd;--red:#ff91b4;--yellow:#ffdc91}
+body[data-theme="pink"]{--bg:#fff1f6;--panel:#fff8fb;--panel2:#ffe5ef;--line:#f2bfd2;--text:#572b40;--muted:#986a7f;--accent:#d94f8b;--green:#23866b;--red:#c83c59;--yellow:#a96b13}
+body[data-theme="beige"]{--bg:#f5efe3;--panel:#fffaf0;--panel2:#eee2cc;--line:#d9c9ae;--text:#493d2c;--muted:#85745c;--accent:#ad8650;--green:#3d8062;--red:#b84f4f;--yellow:#a96b13}
+body{background-color:var(--bg);background-image:linear-gradient(135deg,#0004,#0002),var(--wallpaper,radial-gradient(ellipse at top,#182442 0,var(--bg) 60%));background-size:cover;background-position:center;background-attachment:fixed}
+.card,.stat,.api,aside,.mobilebar{backdrop-filter:blur(14px);background-color:color-mix(in srgb,var(--panel) 92%,transparent)}
+aside,.mobilebar{background-color:color-mix(in srgb,#0e1728 90%,transparent)}
+*{box-sizing:border-box}body{margin:0;color:var(--text);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}button,input,textarea,select{font:inherit}
+body[data-theme="midnight"],body[data-theme="ocean"],body[data-theme="lavender"]{color-scheme:dark}
+body[data-theme="pink"],body[data-theme="beige"]{color-scheme:light}
+body[data-theme="pink"]{--bg:#f8eaf0;--panel:#fff9fc;--panel2:#fff0f6;--text:#3f1b2c;--muted:#63384b;--line:#d99bb5;--accent:#8b2854;--green:#176b45;--red:#a51e36;--yellow:#765000}
+body[data-theme="beige"]{--bg:#f5efe3;--panel:#fffaf0;--panel2:#f8f0e2;--text:#382d1d;--muted:#5d4b32;--line:#bca77f;--accent:#77551e;--green:#176b45;--red:#a51e36;--yellow:#765000}
+input,textarea,select{background:var(--panel2);color:var(--text)}
+.navlabel{color:var(--muted)}.nav{color:var(--text)}.nav .num{color:var(--muted)}
+.endpoint,.tiny.muted{color:var(--muted)}.chip{background:var(--panel2);color:var(--text)}
+.api{background-color:color-mix(in srgb,var(--panel) 96%,transparent)}
+.notice,.status{background:var(--panel2);color:var(--text)}button{cursor:pointer;border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:10px;padding:9px 12px}button.primary{background:var(--accent);color:#10172b;border-color:transparent;font-weight:700}button.danger{color:var(--red)}button:disabled{opacity:.5;cursor:wait}input,textarea,select{width:100%;background:#0a1323;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:11px;outline:none;min-width:0}input:focus,textarea:focus,select:focus{border-color:var(--accent)}textarea{min-height:78px;resize:vertical}
+.layout{min-height:100vh;display:grid;grid-template-columns:235px minmax(0,1fr)}aside{background:#0e1728;border-right:1px solid var(--line);padding:18px 12px;position:sticky;top:0;height:100vh;overflow:auto}.brand{display:flex;align-items:center;gap:10px;padding:5px 8px 20px;font-size:18px;font-weight:800}.brandicon{display:grid;place-items:center;width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#a6b2ff,#687af4);color:#0c1530;font-size:20px}.navlabel{color:#7185a4;font-size:11px;font-weight:700;letter-spacing:1px;padding:13px 10px 5px}.nav{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:transparent;color:#b9c7dd;padding:10px;border-radius:10px;margin:2px 0}.nav.active,.nav:hover{background:#202e49;color:white}.nav .num{margin-left:auto;color:#8094b4;font-size:12px}.sidebottom{border-top:1px solid var(--line);margin-top:18px;padding-top:12px}.main{padding:25px;max-width:1250px;width:100%;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}.top h1{font-size:25px;margin:0}.muted{color:var(--muted)}.tiny{font-size:12px}.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:17px;margin-bottom:15px}.card h2{font-size:16px;margin:0 0 14px}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:16px}.stat strong{font-size:25px;display:block}.stat span{color:var(--muted);font-size:12px}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.row>*{max-width:100%}.grow{flex:1}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.full{grid-column:1/-1}label{display:block;font-size:12px;color:var(--muted);margin:10px 0 6px}.formactions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.toolbar{display:grid;grid-template-columns:minmax(0,1fr) 180px;gap:9px;margin-bottom:12px}.api{border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0;background:#0e182a}.apitop{display:flex;justify-content:space-between;gap:12px}.apitop h3{margin:0;font-size:16px;overflow-wrap:anywhere}.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}.chip{font-size:11px;border-radius:30px;background:#24324d;color:#c9d5ff;padding:3px 8px}.endpoint{font-size:12px;color:#9eb4d6;overflow-wrap:anywhere;margin-top:7px}.keyline{display:flex;gap:7px;margin-top:10px}.keyline input{font-family:ui-monospace,monospace;font-size:12px}.keyline button{flex-shrink:0}.empty{text-align:center;color:var(--muted);padding:32px 8px}.notice{padding:11px 12px;background:#0c1526;border:1px solid var(--line);border-radius:10px;color:var(--muted);font-size:12px;margin-top:12px}.status{margin-top:10px;padding:10px;border-radius:9px;background:#0a1323;white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px}.ok{color:var(--green)}.bad{color:var(--red)}.warn{color:var(--yellow)}.hidden{display:none!important}.models{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.models button{font-size:12px;padding:6px 9px}.sectiontitle{display:flex;justify-content:space-between;align-items:center;gap:10px}.mobilebar{display:none}
+#lockScreen{max-width:480px;margin:9vh auto;padding:18px}
+@media(max-width:760px){.layout{display:block}.mobilebar{display:flex;position:sticky;top:0;z-index:10;background:#0e1728;border-bottom:1px solid var(--line);padding:10px;justify-content:space-between;align-items:center}.mobilebar button{padding:8px 10px}aside{position:fixed;z-index:20;left:0;top:0;width:260px;transform:translateX(-105%);transition:transform .2s;box-shadow:15px 0 40px #0007}aside.open{transform:translateX(0)}.main{padding:15px 12px}.top h1{font-size:21px}.stats{gap:8px}.stat{padding:12px}.stat strong{font-size:21px}.grid{grid-template-columns:1fr}.full{grid-column:auto}.toolbar{grid-template-columns:1fr}.api{padding:12px}.apitop{align-items:flex-start}.keyline{flex-wrap:wrap}.keyline input{flex:1;min-width:130px}}
+
+.auth-box form{display:grid;gap:9px;margin-top:18px}.auth-box label{color:var(--text);font-weight:650;margin-top:5px}.auth-box input{width:100%;box-sizing:border-box;padding:12px;border:1px solid var(--line);border-radius:10px}
+.auth-box button{width:100%;padding:12px;border-radius:10px;margin-top:8px;cursor:pointer}.auth-toggle{background:var(--panel2);color:var(--text);border:1px solid var(--line)}
+.auth-error{color:var(--red);font-size:13px;min-height:18px}.auth-foot{line-height:1.6;margin-bottom:0}
+
+
+/* Accessibility: strong contrast, especially on light themes and mobile screens */
+body[data-theme="pink"],body[data-theme="beige"]{color-scheme:light}
+body[data-theme="pink"] input,body[data-theme="pink"] textarea,body[data-theme="pink"] select,
+body[data-theme="beige"] input,body[data-theme="beige"] textarea,body[data-theme="beige"] select{
+  background:var(--panel2)!important;color:var(--text)!important;border:1px solid var(--line)!important;
+}
+body[data-theme="pink"] input::placeholder,body[data-theme="pink"] textarea::placeholder,
+body[data-theme="beige"] input::placeholder,body[data-theme="beige"] textarea::placeholder{color:var(--muted)!important;opacity:1}
+body[data-theme="pink"] .muted,body[data-theme="pink"] .tiny,body[data-theme="pink"] .endpoint,
+body[data-theme="beige"] .muted,body[data-theme="beige"] .tiny,body[data-theme="beige"] .endpoint{color:var(--muted)}
+body[data-theme="pink"] .card,body[data-theme="pink"] .stat,body[data-theme="pink"] .api,
+body[data-theme="beige"] .card,body[data-theme="beige"] .stat,body[data-theme="beige"] .api{
+  background-color:var(--panel)!important;backdrop-filter:none;
+}
+body[data-theme="pink"] aside,body[data-theme="pink"] .mobilebar,
+body[data-theme="beige"] aside,body[data-theme="beige"] .mobilebar{background-color:var(--panel)!important}
+button,input,textarea,select{font-size:max(15px,1em)}
+@media(max-width:600px){
+  body{font-size:16px;line-height:1.6}
+  .muted,.tiny,.endpoint,.navlabel{font-size:14px;line-height:1.55}
+  label{font-size:15px}
+  button,.nav{min-height:44px}
+}
+</style></head>
+<body>
+<div id="app" class="layout hidden">
+ <div class="mobilebar"><div class="row"><div class="brandicon">⌘</div><b>API Hub</b></div><button id="menuBtn">☰ 目录</button></div>
+ <aside id="sidebar">
+  <div class="brand"><div class="brandicon">⌘</div><div>API Hub<div class="muted tiny">密钥管理中心</div></div></div>
+  <div class="navlabel">工作区</div>
+  <button class="nav active" data-view="overview">▦　总览</button>
+  <button class="nav" data-view="all">☷　全部 API <span class="num" id="sideCount">0</span></button>
+  <button class="nav" data-view="add">＋　添加 API</button>
+  <div class="navlabel">分类</div><div id="categoryNav"></div>
+  <div class="navlabel">数据</div>
+  <button class="nav" data-view="backup">⇅　备份与恢复</button>
+  <div class="sidebottom"><div class="muted tiny" style="padding:10px">仅保存在当前浏览器 · 不自动上传</div></div>
+ </aside>
+ <main class="main">
+  <div class="top"><div><h1 id="pageTitle">总览</h1><div class="muted tiny" id="pageSub">管理你的 API 地址、密钥与模型</div></div><button class="primary" id="quickAdd">＋ 添加 API</button></div>
+  <section id="view-overview">
+   <div class="stats"><div class="stat"><strong id="statTotal">0</strong><span>API 记录</span></div><div class="stat"><strong id="statCats">0</strong><span>分类数量</span></div><div class="stat"><strong id="statModels">0</strong><span>已保存模型</span></div></div>
+   <div class="card" style="margin-top:15px"><div class="sectiontitle"><h2>最近添加</h2><button data-goto="all">查看全部</button></div><div id="recentList"></div></div>
+   <details class="card" id="appearanceCard"><summary style="cursor:pointer;font-weight:700">🎨 外观与壁纸（点击展开）</summary><div style="padding-top:12px">
+    <label for="themeSelect">选择主题</label><select id="themeSelect"><option value="midnight">午夜蓝 · 简洁深色</option><option value="ocean">海洋青 · 清爽冷色</option><option value="lavender">薰衣草 · 柔和紫色</option><option value="pink">樱花粉 · 温柔明亮</option><option value="beige">奶油米黄 · 温暖柔和</option></select>
+    <label for="wallpaperFile">自定义壁纸（从手机相册选择图片）</label><input id="wallpaperFile" type="file" accept="image/*">
+    <div class="formactions"><button id="clearWallpaper">恢复默认背景</button></div>
+    <div class="notice">主题和壁纸设置保存在当前浏览器。为控制存储空间，壁纸会自动缩小后保存；更换浏览器或清除网站数据后需要重新设置。</div></div></details>
+   <div class="card"><h2>快速提示</h2><div class="muted tiny">• OpenAI 兼容接口一般可通过 Base URL + /models 获取模型列表。<br>• 连通性测试会请求模型列表接口，不会发送聊天内容。<br>• 若浏览器提示 CORS/跨域错误，可能需要服务商开放跨域或使用自己的后端代理。<br>• 不要把包含密钥的备份文件发给他人。</div></div>
+  </section>
+  <section id="view-all" class="hidden"><div class="card"><div class="toolbar"><input id="search" placeholder="搜索名称、URL、标签、模型…"><select id="filter"><option value="">全部分类</option></select></div><div id="apiList"></div></div></section>
+  <section id="view-add" class="hidden"><div class="card"><h2 id="formTitle">添加 API</h2><form id="apiForm"><input id="recordId" type="hidden">
+   <div class="grid">
+    <div><label>名称 *</label><input id="name" required maxlength="100" placeholder="例如：我的 DeepSeek"></div>
+    <div><label>分类（选填）</label><input id="category" list="catOptions" maxlength="60" placeholder="例如：DeepSeek"><datalist id="catOptions"><option>OpenAI</option><option>Anthropic Claude</option><option>Google Gemini</option><option>DeepSeek</option><option>兼容接口</option><option>其他</option></datalist></div>
+    <div class="full"><label>API URL / Base URL *</label><input id="baseUrl" type="url" required placeholder="https://api.example.com/v1"></div>
+    <div class="full"><label>API Key / 密钥 *</label><input id="apiKey" required autocomplete="off" placeholder="粘贴 API 密钥"></div>
+    <div><label>默认模型</label><input id="model" placeholder="例如：deepseek-chat"></div>
+    <div><label>标签（逗号分隔）</label><input id="tags" placeholder="生产,备用,个人"></div>
+    <div class="full"><label>备注</label><textarea id="notes" maxlength="2000" placeholder="用途、额度说明、供应商等"></textarea></div>
+   </div>
+   <div class="formactions"><button class="primary" type="submit">保存到本地</button><button type="button" id="testForm">测试连通性</button><button type="button" id="fetchForm">拉取模型</button><button type="button" id="cancelEdit" class="hidden">取消编辑</button></div>
+   <div id="formStatus" class="status hidden"></div><div id="formModels" class="models"></div>
+   <div class="notice">URL 请填写服务商提供的 Base URL，通常类似 https://api.example.com/v1。不同供应商路径可能不同。</div>
+  </form></div></section>
+  <section id="view-backup" class="hidden"><div class="card"><h2>数据备份与恢复</h2><p class="muted tiny">数据保存在当前浏览器。导出为 JSON 文件可备份或转移到其他设备；导入时可选择合并或替换。</p><div class="formactions"><button class="primary" id="exportBtn">一键导出 JSON</button><label for="importFile" style="margin:0"><span style="display:inline-block;padding:9px 12px;border:1px solid var(--line);border-radius:10px;cursor:pointer">一键导入 JSON</span></label><input id="importFile" class="hidden" type="file" accept=".json,application/json"></div><div class="notice">注意：数据仅保存在当前浏览器，不会云端同步。清除浏览器数据可能导致记录丢失，请定期导出备份。导出文件包含 API 密钥，请妥善保管。</div><div class="formactions"><button class="danger" id="wipeBtn">删除所有数据并重置</button></div></div></section>
+ </main>
+</div>
+<script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id), DB='apihub-records-v1';
+let records=[],currentView='overview',categoryView=null;
+async function save(){localStorage.setItem(DB,JSON.stringify(records))}
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function say(el,msg,cls=''){el.className='status '+cls;el.textContent=msg;el.classList.remove('hidden')}
+function applyAppearance(){
+ const theme=localStorage.getItem('apihub-theme-v1')||'midnight';
+ document.body.dataset.theme=theme;
+ const sel=$('themeSelect');if(sel)sel.value=theme;
+ const wp=localStorage.getItem('apihub-wallpaper-v1');
+ if(wp)document.body.style.setProperty('--wallpaper',`linear-gradient(135deg,#0008,#0005),url("${wp}")`);
+ else document.body.style.removeProperty('--wallpaper');
+}
+document.addEventListener('change',async e=>{
+ if(e.target.id==='themeSelect'){localStorage.setItem('apihub-theme-v1',e.target.value);applyAppearance()}
+ if(e.target.id==='wallpaperFile'){
+  const file=e.target.files&&e.target.files[0];if(!file)return;
+  if(!file.type.startsWith('image/')){alert('请选择图片文件');e.target.value='';return}
+  try{
+   const data=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(file)});
+   const img=await new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=reject;im.src=data});
+   const max=1600,scale=Math.min(1,max/Math.max(img.width,img.height)),canvas=document.createElement('canvas');
+   canvas.width=Math.round(img.width*scale);canvas.height=Math.round(img.height*scale);
+   canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
+   const compact=canvas.toDataURL('image/jpeg',0.78);
+   try{localStorage.setItem('apihub-wallpaper-v1',compact)}catch(err){throw Error('图片仍然太大，或浏览器存储空间不足。请换一张较小的图片。')}
+   applyAppearance();alert('壁纸已保存！');
+  }catch(err){alert('设置壁纸失败：'+(err.message||'无法读取图片'))}
+  e.target.value='';
+ }
+});
+$('clearWallpaper').onclick=()=>{localStorage.removeItem('apihub-wallpaper-v1');applyAppearance()};
+function initLocalData(){
+ try { const raw=localStorage.getItem(DB); records=raw?JSON.parse(raw):[]; if(!Array.isArray(records)) records=[]; }
+ catch(e){ records=[]; alert('读取本地数据失败，可能数据格式损坏。建议先不要清理浏览器数据。'); }
+ $('app').classList.remove('hidden'); renderAll(); go('overview');
+}
+function cats(){return [...new Set(records.map(r=>r.category).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'zh-CN'))}
+function go(view,cat=null){currentView=view;categoryView=cat;document.querySelectorAll('section[id^="view-"]').forEach(s=>s.classList.add('hidden'));let actual=cat?'all':view;$('view-'+actual)?.classList.remove('hidden');document.querySelectorAll('.nav[data-view]').forEach(n=>n.classList.toggle('active',n.dataset.view===view&& !cat));$('pageTitle').textContent=cat||({overview:'总览',all:'全部 API',add:'添加 API',backup:'备份与恢复'}[view]||view);$('pageSub').textContent=cat?'分类中的 API 记录':'管理你的 API 地址、密钥与模型';if(cat){$('filter').value=cat;renderList()}if(view==='add')$('name').focus({preventScroll:true});$('sidebar').classList.remove('open')}
+document.querySelectorAll('.nav[data-view]').forEach(n=>n.onclick=()=>go(n.dataset.view));document.querySelectorAll('[data-goto]').forEach(n=>n.onclick=()=>go(n.dataset.goto));$('quickAdd').onclick=()=>{resetForm();go('add')};$('menuBtn').onclick=()=>$('sidebar').classList.toggle('open');
+function renderAll(){renderNav();renderStats();renderList();renderRecent()}
+function renderNav(){let cs=cats();$('sideCount').textContent=records.length;$('categoryNav').innerHTML=cs.length?cs.map(c=>`<button class="nav" data-cat="${esc(c)}">▸　${esc(c)} <span class="num">${records.filter(r=>r.category===c).length}</span></button>`).join(''):'<div class="muted tiny" style="padding:8px 10px">暂无分类</div>';$('categoryNav').querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{go('all',b.dataset.cat)})}
+function renderStats(){$('statTotal').textContent=records.length;$('statCats').textContent=cats().length;$('statModels').textContent=new Set(records.flatMap(r=>[...(r.models||[]),r.model].filter(Boolean))).size}
+function apiCard(r){let id=esc(r.id);return `<article class="api"><div class="apitop"><div><h3>${esc(r.name)}</h3><div class="chips">${r.category?`<span class="chip">${esc(r.category)}</span>`:""}${(r.tags||[]).map(t=>`<span class="chip">#${esc(t)}</span>`).join('')}</div></div><button data-act="edit" data-id="${id}">编辑</button></div><div class="endpoint">URL：${esc(r.baseUrl)}</div><div class="keyline"><input readonly type="password" id="key-${id}" value="${esc(r.apiKey)}" aria-label="API Key"><button data-act="show" data-id="${id}">显示</button><button data-act="copykey" data-id="${id}">复制密钥</button></div><div class="row" style="margin-top:9px"><button data-act="copyurl" data-id="${id}">复制 URL</button><button data-act="test" data-id="${id}">测试连接</button><button data-act="models" data-id="${id}">拉取模型</button><button class="danger" data-act="delete" data-id="${id}">删除</button></div><div class="tiny muted" style="margin-top:7px">默认模型：${esc(r.model||'未设置')}　·　标签：${esc((r.tags||[]).join(', ')||'无')}</div>${r.notes?`<div class="tiny muted" style="margin-top:4px">备注：${esc(r.notes)}</div>`:''}<div id="result-${id}" class="status hidden"></div><div id="models-${id}" class="models"></div></article>`}
+function renderList(){let q=($('search')?.value||'').toLowerCase().trim(),filter=categoryView||$('filter')?.value||'';let fs=$('filter');if(fs){let old=fs.value;fs.innerHTML='<option value="">全部分类</option>'+cats().map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('');fs.value=cats().includes(old)?old:'';if(categoryView)fs.value=categoryView}let shown=records.filter(r=>(!filter||r.category===filter)&&[r.name,r.category,r.baseUrl,r.model,(r.tags||[]).join(' '),r.notes].join(' ').toLowerCase().includes(q));$('apiList').innerHTML=shown.length?shown.map(apiCard).join(''):'<div class="empty">没有找到记录。点击「添加 API」创建第一条。</div>'}
+function renderRecent(){$('recentList').innerHTML=records.length?records.slice().sort((a,b)=>(b.updated||'').localeCompare(a.updated||'')).slice(0,3).map(apiCard).join(''):'<div class="empty">还没有 API 记录，点击右上角添加。</div>'}
+$('search').oninput=renderList;$('filter').onchange=()=>{categoryView=null;renderList()};
+function resetForm(){$('apiForm').reset();$('recordId').value='';$('formTitle').textContent='添加 API';$('cancelEdit').classList.add('hidden');$('formStatus').classList.add('hidden');$('formModels').innerHTML=''}
+$('cancelEdit').onclick=()=>{resetForm();go('all')};
+function readForm(){return{id:$('recordId').value||((crypto.randomUUID&&crypto.randomUUID())||String(Date.now())+Math.random()),name:$('name').value.trim(),category:$('category').value.trim(),baseUrl:$('baseUrl').value.trim().replace(/\/+$/,''),apiKey:$('apiKey').value.trim(),model:$('model').value.trim(),tags:$('tags').value.split(/[,，]/).map(x=>x.trim()).filter(Boolean),notes:$('notes').value.trim(),models:[],created:new Date().toISOString(),updated:new Date().toISOString()}}
+$('apiForm').onsubmit=async e=>{e.preventDefault();let r=readForm(),old=records.find(x=>x.id===r.id);if(old){r.created=old.created;r.models=old.models||[];records=records.map(x=>x.id===r.id?r:x)}else records.unshift(r);try{await save();renderAll();resetForm();go('all')}catch(e){alert('保存失败：'+e.message)}};
+async function copyText(s){try{await navigator.clipboard.writeText(s);return true}catch{let t=document.createElement('textarea');t.value=s;document.body.append(t);t.select();let ok=document.execCommand('copy');t.remove();return ok}}
+function endpoint(r){return r.baseUrl.replace(/\/+$/,'')+'/models'}
+async function requestModels(r){if(!r.baseUrl||!r.apiKey)throw Error('请先填写 API URL 和密钥');let url=endpoint(r);let res;try{res=await fetch(url,{method:'GET',headers:{'Authorization':'Bearer '+r.apiKey,'Accept':'application/json'}})}catch(e){throw Error('请求失败或浏览器跨域拦截（CORS）。请检查 URL、网络，或服务商是否允许浏览器跨域访问。原始信息：'+e.message)}let txt=await res.text();let data;try{data=JSON.parse(txt)}catch{data={message:txt.slice(0,500)}}if(!res.ok)throw Error('HTTP '+res.status+'：'+(data.error?.message||data.message||res.statusText));let arr=Array.isArray(data.data)?data.data:Array.isArray(data.models)?data.models:null;if(!arr)throw Error('接口返回成功，但响应中未找到 data[] 或 models[] 模型列表');return arr.map(m=>typeof m==='string'?m:m.id||m.name).filter(Boolean)}
+async function testOne(r,box){say(box,'正在请求 '+endpoint(r)+' …','warn');try{let models=await requestModels(r);say(box,'连接成功！HTTP 模型列表接口可用，获取到 '+models.length+' 个模型。注意：这不代表聊天生成接口一定可用。','ok');return models}catch(e){say(box,'连接失败：'+e.message,'bad');return null}}
+function renderModels(container,models,onPick){container.innerHTML='';models.slice(0,100).forEach(m=>{let b=document.createElement('button');b.textContent=m;b.title='点击设为默认模型';b.onclick=()=>onPick(m);container.append(b)});if(models.length>100){let s=document.createElement('span');s.className='tiny muted';s.textContent='仅显示前 100 个';container.append(s)}}
+async function formTest(fetchOnly){let r=readForm();if(!r.baseUrl||!r.apiKey){say($('formStatus'),'请先填写 API URL 和密钥。','bad');return}let models=await testOne(r,$('formStatus'));if(models){r.models=models;renderModels($('formModels'),models,m=>$('model').value=m);if(fetchOnly)say($('formStatus'),'拉取成功，共 '+models.length+' 个模型。点击模型名称可填入默认模型。','ok')}}
+$('testForm').onclick=()=>formTest(false);$('fetchForm').onclick=()=>formTest(true);
+document.addEventListener('click',async e=>{let b=e.target.closest('button[data-act]');if(!b)return;let r=records.find(x=>x.id===b.dataset.id);if(!r)return;let box=$('result-'+r.id),act=b.dataset.act;
+if(act==='show'){let i=$('key-'+r.id);i.type=i.type==='password'?'text':'password';b.textContent=i.type==='password'?'显示':'隐藏'}
+if(act==='copykey'){b.textContent=await copyText(r.apiKey)?'已复制':'复制失败';setTimeout(()=>b.textContent='复制密钥',1000)}
+if(act==='copyurl'){b.textContent=await copyText(r.baseUrl)?'已复制':'复制失败';setTimeout(()=>b.textContent='复制 URL',1000)}
+if(act==='edit'){resetForm();$('recordId').value=r.id;for(let k of ['name','category','baseUrl','apiKey','model','notes'])$(k).value=r[k]||'';$('tags').value=(r.tags||[]).join(', ');$('formTitle').textContent='编辑 API';$('cancelEdit').classList.remove('hidden');go('add');$('name').focus()}
+if(act==='delete'&&confirm('确定删除「'+r.name+'」吗？')){records=records.filter(x=>x.id!==r.id);await save();renderAll()}
+if(act==='test'||act==='models'){b.disabled=true;let ms=await testOne(r,box);if(ms){r.models=ms;renderModels($('models-'+r.id),ms,m=>{r.model=m;save().then(renderAll);});await save();renderStats()}b.disabled=false}
+});
+
+$('exportBtn').onclick=()=>{
+ const payload={format:'apihub-local-backup',version:1,exportedAt:new Date().toISOString(),records};
+ const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+ const url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download='apihub-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();
+ setTimeout(()=>URL.revokeObjectURL(url),1000);
+};
+$('importFile').onchange=async e=>{
+ const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;
+ try{
+  const p=JSON.parse(await f.text());
+  let incoming;
+  if(p.format==='apihub-local-backup'&&Array.isArray(p.records)) incoming=p.records;
+  else if(p.format==='apihub-encrypted-backup') throw Error('这是旧版加密备份，必须用旧版主密码解密。此版本不会删除旧备份，请使用旧版页面恢复后再导出为新版 JSON。');
+  else if(Array.isArray(p)) incoming=p;
+  else throw Error('文件格式不正确：请选择 API Hub JSON 备份文件。');
+  if(!incoming.every(r=>r&&typeof r==='object'&&typeof r.name==='string'&&typeof r.baseUrl==='string')) throw Error('备份内容不完整或格式不正确。');
+  const mode=confirm('点“确定”合并导入（同 ID 记录会覆盖）；点“取消”则再询问是否替换当前全部记录。');
+  if(mode){const map=new Map(records.map(r=>[r.id,r]));incoming.forEach(r=>map.set(r.id,r));records=[...map.values()];}
+  else if(confirm('确定要用备份替换当前全部记录吗？此操作无法撤销。')) records=incoming;
+  else return;
+  await save();renderAll();alert('导入成功！当前共有 '+records.length+' 条记录。');
+ }catch(err){alert('导入失败：'+err.message)}
+};
+$('wipeBtn').onclick=()=>{if(confirm('确定删除当前浏览器中的全部 API 记录？')&&confirm('此操作无法撤销，建议先导出备份。')){records=[];save().then(()=>{renderAll();go('overview')})}};
+applyAppearance();initLocalData();
+})();
+
+</script></body></html>
